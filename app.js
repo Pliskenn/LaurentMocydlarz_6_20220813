@@ -1,13 +1,12 @@
 // Définition de la constante express
 const express = require('express');
-// Définition de la constante Thing = chemin vers le modèle de base de données
-const Users = require('./models/Users');
 
 // Définition de la constante mongoose : va nous permettre d'utiliser MongoDB (installé dans node_modules)
 const mongoose = require('mongoose');
 
 // Route Sauces
 const saucesRoutes = require('./routes/sauces');
+const userRoutes = require('./routes/user');
 
 // Express 
 const app = express();
@@ -31,5 +30,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/sauces', saucesRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
