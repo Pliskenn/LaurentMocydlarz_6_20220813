@@ -2,9 +2,15 @@ const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken');
 
-const user = require('../models/Users');
+const User = require('../models/Users');
 
-exports.signup = (req, res, next) => {
+// Création d'un utilisateur
+exports.signup = (req, res) => {
+    // console.log(req)
+    // res.send({
+    //           email: req.body.email,
+    //           password: req.body.password
+    //         });
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
         const user = new User({
@@ -18,8 +24,9 @@ exports.signup = (req, res, next) => {
       .catch(error => res.status(500).json({ error }));
   };
 
+// Login de l'utilisateur
 exports.login = (req, res, next) => {
-    user.findOne({ email: req.body.email })
+    User.findOne({ email: req.body.email })
         .then(user => {
             if (!user) {
                 return res.status(401).json({ message: 'Vos identifants de connexion sont inccorects'});

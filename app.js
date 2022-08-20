@@ -4,6 +4,8 @@ const express = require('express');
 // Définition de la constante mongoose : va nous permettre d'utiliser MongoDB (installé dans node_modules)
 const mongoose = require('mongoose');
 
+const bodyParser = require('body-parser');
+
 // Route Sauces
 const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
@@ -29,6 +31,12 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(bodyParser.json());
+
+app.get('/', function routeHandler(req, res) {
+  res.send('ok');
+  });
+  
 app.use('/api/sauces', saucesRoutes);
 app.use('/api/auth', userRoutes);
 
