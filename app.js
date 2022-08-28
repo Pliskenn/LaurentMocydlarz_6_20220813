@@ -1,6 +1,6 @@
 // Définition de la constante express
 const express = require('express');
-
+const path = require('path');
 // Définition de la constante mongoose : va nous permettre d'utiliser MongoDB (installé dans node_modules)
 const mongoose = require('mongoose');
 
@@ -39,5 +39,6 @@ app.get('/', function routeHandler(req, res) {
   
 app.use('/api/sauces', saucesRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
