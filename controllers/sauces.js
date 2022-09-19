@@ -126,16 +126,20 @@ exports.like = (req, res, next) => {
           // Vérifier si like = 0 /si oui, vérifier que le userDislike.includes.userId = oui
           let pullParams = null;
           if (sauces.usersDisliked.includes(req.body.userId))
-            pullParams = { usersDisliked: req.body.userId };
+   {         pullParams = { usersDisliked: req.body.userId };
+            params = {
+              $pull: pullParams,
+              $inc: { dislikes: -1 },
+            };}
+            
 
           if (sauces.usersLiked.includes(req.body.userId))
-            pullParams = { usersLiked: req.body.userId };
-
-          params = {
-            $pull: pullParams,
-            $inc: { likes: -1 },
-          };
-          break;
+            {pullParams = { usersLiked: req.body.userId };
+            params = {
+              $pull: pullParams,
+              $inc: { likes: -1 },
+            };}
+          break; 
 
         default:
           break;
